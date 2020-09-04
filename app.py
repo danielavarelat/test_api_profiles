@@ -41,7 +41,7 @@ def form(idStudent=None):
         else:
             print("Created")
             collection.insert_one(dict_user)
-        return "PROFILE OK = "
+        return "PROFILE OK"
     if request.method == "GET":
         if q:
             idioma = q['lang']
