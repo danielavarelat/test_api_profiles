@@ -9,13 +9,12 @@ from flask_pymongo import PyMongo
 # from wtforms.validators import DataRequired
 
 app = Flask(__name__)
-print(app)
-# app.config["MONGO_URI"] = 'mongodb+srv://daniela:crispeta@cluster0.t3xek.mongodb.net/profiles'
-# mongo = PyMongo(app)
+
 client = MongoClient(
     'mongodb+srv://daniela:crispeta@cluster0.t3xek.mongodb.net/')
 db = client['profiles']
-collection = db['student_coll']
+collection_student = db['student_coll']
+collection_course = db['course_coll']
 
 # Atlas: daniela, crispeta
 # mongo = pymongo.MongoClient('mongodb+srv://daniela:crispeta@cluster0.t3xek.mongodb.net/studentDB', maxPoolSize=50, connect=False)
@@ -24,7 +23,7 @@ collection = db['student_coll']
 @app.route("/studentProfile/<idStudent>",  methods=['GET', 'POST'])
 def form(idStudent=None):
     userid = str(idStudent)
-    q = collection.find_one({"userid": userid})
+    q = collection_student.find_one({"userid": userid})
 
     if request.method == "POST":
         idioma = request.form.getlist("idioma")[0]
@@ -36,11 +35,11 @@ def form(idStudent=None):
         print(q)
         if q:
             print("Updated")
-            collection.update_one({'_id': q['_id']}, {
+            collection_student.update_one({'_id': q['_id']}, {
                                   '$set': dict_user}, upsert=False)
         else:
             print("Created")
-            collection.insert_one(dict_user)
+            collection_student.insert_one(dict_user)
         return "PROFILE OK"
     if request.method == "GET":
         if q:
@@ -50,9 +49,15 @@ def form(idStudent=None):
             print(fuentes)
 
             return render_template(
-                "index.html", idStudent=idStudent, language=idioma, formats=formatos, sources=fuentes)
-    return render_template("index.html", idStudent=idStudent)
+                "index_student.html", idStudent=idStudent, language=idioma, formats=formatos, sources=fuentes)
+    return render_template("index_student.html", idStudent=idStudent)
 
+@app.route("/courseProfile/<idCourse>",  methods=['GET', 'POST'])
+def formCourse(idCourse=None):
+    courseid = str(idCourse)
+    #q = collection_course.find_one({"courseid": courseid})
+
+    return render_template("index_course.html", idCourse=idCourse)
 
 @app.route('/created')
 def studentLink():

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Course Profile</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Daniela Varela" />
+    <!-- Bootstrap core CSS -->
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <!-- Custom CSS -->
+    <!-- <link rel="stylesheet" href="/css/styles.css" /> -->
+  </head>
+
+  <body class="text-center">
+    <form
+      action="/courseProfile/{{idCourse}}"
+      class="form-course"
+      method="post"
+    >
+      <h1 class="h3 mb-3 font-weight-normal">
+        Formulario del curso {{idCourse}}
+      </h1>
+      <!-- Pregunta 1 -->
+      <label>Seleccione el idioma de preferencia</label><br />
+      <input type="radio" id="eng" name="idioma" value="ingles" {{'checked' if
+      language =="ingles" else '' }} />
+      <label for="ingles">Inglés</label><br />
+      <input type="radio" id="spa" name="idioma" value="español" {{'checked' if
+      language =="español" else '' }}/>
+      <label for="español">Español</label><br />
+      <input type="radio" id="eng-spa" name="idioma" value="ing-esp" {{'checked'
+      if language =="ing-esp" else '' }}/>
+      <label for="ing-esp">Inglés - Español</label><br />
+      <br />
+      
+      <!-- Pregunta 3 -->
+      <label
+        >Elija las fuentes que sean de mayor interés. SE puede elegir más de
+        una.</label
+      ><br />
+      <input type="checkbox" id="fuente1" name="fuente" value="articulos"
+      {{'checked' if "articulos" in sources else '' }}/>
+      <label for="fuente1">
+        Artículos científicos. </label
+      ><br />
+      <input type="checkbox" id="fuente2" name="fuente" value="libros"
+      {{'checked' if "libros" in sources else '' }}/>
+      <label for="fuente2"> Libros </label><br />
+      <input type="checkbox" id="fuente3" name="fuente" value="foros"
+      {{'checked' if "foros" in sources else '' }}/>
+      <label for="fuente3"> Foros </label><br />
+      <input type="checkbox" id="fuente3" name="fuente" value="Wikipedia"
+      {{'checked' if "Wikipedia" in sources else '' }}/>
+      <label for="fuente4"> Wikipedia </label><br />
+      <input type="checkbox" id="fuente5" name="fuente" value="objetos"
+      {{'checked' if "objetos" in sources else '' }}/>
+      <label for="fuente5"> Objetos de aprendizaje. </label><br />
+      <br />
+      <button class="btn btn-lg btn-primary btn-block" type="submit">
+        Save
+      </button>
+    </form>
+  </body>
+</html>
