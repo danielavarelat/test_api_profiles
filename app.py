@@ -40,7 +40,9 @@ def form(idStudent=None):
         else:
             print("Created")
             collection_student.insert_one(dict_user)
-        return "PROFILE OK"
+        return render_template("profile_ok.html", idStudent=idStudent)
+
+        
     if request.method == "GET":
         if q:
             idioma = q['lang']
@@ -50,7 +52,9 @@ def form(idStudent=None):
 
             return render_template(
                 "index_student.html", idStudent=idStudent, language=idioma, formats=formatos, sources=fuentes)
+
     return render_template("index_student.html", idStudent=idStudent)
+
 
 @app.route("/courseProfile/<idCourse>",  methods=['GET', 'POST'])
 def formCourse(idCourse=None):

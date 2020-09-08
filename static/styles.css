@@ -1,0 +1,24 @@
+html {
+  font-family: "Montserrat", sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background: #eee;
+  text-align: center;
+}
+
+/* profile_ok.html */
+.fa-user{
+  color: green;
+}
+
+/* index_student.html */
+.form-student {
+  width: 100%;
+  max-width: 650px;
+  padding: 10px;
+  margin: auto;
+  border: black;
+}
