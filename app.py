@@ -40,9 +40,9 @@ def form(idStudent=None):
         else:
             print("Created")
             collection_student.insert_one(dict_user)
-        return render_template("profile_ok.html", idStudent=idStudent)
+        return render_template("student_ok.html", idStudent=idStudent)
 
-        
+
     if request.method == "GET":
         if q:
             idioma = q['lang']
@@ -62,10 +62,6 @@ def formCourse(idCourse=None):
     #q = collection_course.find_one({"courseid": courseid})
 
     return render_template("index_course.html", idCourse=idCourse)
-
-@app.route('/created')
-def studentLink():
-    return "OK"
 
 
 if __name__ == '__main__':

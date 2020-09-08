@@ -6,11 +6,19 @@ html {
 }
 body {
   background: #eee;
+  text-align: left;
+}
+h1,h2,h3,h4,h5,h6 {
   text-align: center;
 }
 
-/* profile_ok.html */
+/* student_ok.html */
 .fa-user{
+  color: green;
+}
+
+/* course_ok.html */
+.fa-save{
   color: green;
 }
 
