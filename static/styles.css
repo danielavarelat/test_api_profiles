@@ -8,17 +8,22 @@ body {
   background: #eee;
   text-align: left;
 }
-h1,h2,h3,h4,h5,h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   text-align: center;
 }
 
 /* student_ok.html */
-.fa-user{
+.fa-user {
   color: green;
 }
 
 /* course_ok.html */
-.fa-save{
+.fa-save {
   color: green;
 }
 
@@ -31,7 +36,7 @@ h1,h2,h3,h4,h5,h6 {
   border: black;
 }
 .row {
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   padding-top: 20px;
   padding-bottom: 20px;
   background-color: #dce7ec;
