@@ -3,10 +3,6 @@ import pymongo
 from pymongo import MongoClient
 from flask import Flask, request, render_template
 from flask_pymongo import PyMongo
-# Para forms
-# from flask_wtf import FlaskForm
-# from wtforms import StringField, PasswordField, BooleanField, SubmitField
-# from wtforms.validators import DataRequired
 
 app = Flask(__name__)
 
@@ -17,9 +13,6 @@ collection_student = db['student_coll']
 collection_course = db['course_coll']
 
 # Atlas: daniela, crispeta
-# mongo = pymongo.MongoClient('mongodb+srv://daniela:crispeta@cluster0.t3xek.mongodb.net/studentDB', maxPoolSize=50, connect=False)
-
-
 @app.route("/studentProfile/<idStudent>",  methods=['GET', 'POST'])
 def form(idStudent=None):
     userid = str(idStudent)
@@ -59,8 +52,31 @@ def form(idStudent=None):
 @app.route("/courseProfile/<idCourse>",  methods=['GET', 'POST'])
 def formCourse(idCourse=None):
     courseid = str(idCourse)
-    #q = collection_course.find_one({"courseid": courseid})
+    q = collection_course.find_one({"courseid": courseid})
+    if request.method == "POST":
+        idioma = request.form.getlist("idioma")[0]
+        fuentes = request.form.getlist("fuente")
+        dict_course = {"courseid": courseid, "lang": idioma,
+                     "sources": fuentes}
+        print(dict_course)
+        print(q)
+        if q:
+            print("Updated")
+            collection_student.update_one({'_id': q['_id']}, {
+                                  '$set': dict_course}, upsert=False)
+        else:
+            print("Created")
+            collection_course.insert_one(dict_course)
+        return render_template("course_ok.html", idCourse=idCourse)
 
+    if request.method == "GET":
+        if q:
+            idioma = q['lang']
+            fuentes = q['sources']
+            print(fuentes)
+
+            return render_template(
+                "index_course.html", idCourse=idCourse, language=idioma, sources=fuentes)
     return render_template("index_course.html", idCourse=idCourse)
 
 
