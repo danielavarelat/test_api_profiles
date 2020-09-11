@@ -15,17 +15,16 @@ collection_course = db['course_coll']
 # Atlas: daniela, crispeta
 @app.route("/studentProfile/<idStudent>",  methods=['GET', 'POST'])
 def form(idStudent=None):
+    uname = str(request.args.get('username'))
     userid = str(idStudent)
     q = collection_student.find_one({"userid": userid})
-
     if request.method == "POST":
-        idioma = request.form.getlist("idioma")[0]
+        idioma = request.form.get("idioma")
         formatos = request.form.getlist("formato")
         fuentes = request.form.getlist("fuente")
-        dict_user = {"userid": userid, "lang": idioma,
+        dict_user = {"userid": userid, "username":uname, "lang": idioma,
                      "sources": fuentes, "formats": formatos}
         print(dict_user)
-        print(q)
         if q:
             print("Updated")
             collection_student.update_one({'_id': q['_id']}, {
@@ -41,22 +40,21 @@ def form(idStudent=None):
             idioma = q['lang']
             formatos = q['formats']
             fuentes = q['sources']
-            print(fuentes)
-
             return render_template(
-                "index_student.html", idStudent=idStudent, language=idioma, formats=formatos, sources=fuentes)
-
-    return render_template("index_student.html", idStudent=idStudent)
+                "index_student.html", idStudent=idStudent, username=uname, language=idioma, formats=formatos, sources=fuentes)
+    ##si hace get y no encuentra nada - renderizar asi>
+    return render_template("index_student.html", idStudent=idStudent, username=uname)
 
 
 @app.route("/courseProfile/<idCourse>",  methods=['GET', 'POST'])
 def formCourse(idCourse=None):
     courseid = str(idCourse)
+    uname = str(request.args.get('username'))
     q = collection_course.find_one({"courseid": courseid})
     if request.method == "POST":
-        idioma = request.form.getlist("idioma")[0]
+        idioma = request.form.get("idioma")
         fuentes = request.form.getlist("fuente")
-        dict_course = {"courseid": courseid, "lang": idioma,
+        dict_course = {"courseid": courseid, "username":uname, "lang": idioma,
                      "sources": fuentes}
         print(dict_course)
         print(q)
@@ -76,35 +74,9 @@ def formCourse(idCourse=None):
             print(fuentes)
 
             return render_template(
-                "index_course.html", idCourse=idCourse, language=idioma, sources=fuentes)
-    return render_template("index_course.html", idCourse=idCourse)
+                "index_course.html", idCourse=idCourse, username=uname, language=idioma, sources=fuentes)
+    return render_template("index_course.html", idCourse=idCourse, username=uname)
 
 
 if __name__ == '__main__':
     app.run()
-
-# @app.route("/studentProfile/<idStudent>", methods=['GET', 'POST'])
-# def readForm():
-#     if request.method == "POST":
-#         print(request.form.get("lang"))
-#         return "DONE"
-#     return render_template("index.html")
-    # Pregunta 1
-    # idioma = request.values.get("idioma")
-    # if request.method == 'POST':
-    #     print("OK")
-    #     print(request.form.get('hello'))
-    # print(request.form.getlist("idioma"))
-
-    # Pregunta 2
-    # for i in (range(6)+1):
-    #     ii = str("formato"+i)
-    #     formatos.append(request.values.get("ii"))
-
-    # Pregunta 3
-    # for i in (range(5)+1):
-    #     ii = str("fuente"+i)
-    #     fuentes.append(request.values.get("ii"))
-
-    # todos.insert({ "name":name, "desc":desc, "date":date, "pr":pr, "done":"no"})
-    # return redirect("/home")
