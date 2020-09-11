@@ -15,7 +15,7 @@
     <form action="/studentProfile/{{idStudent}}?username={{username}}" class="form-student" method="post" >
 
       <!-- Pregunta 1 -->
-      <div class="row row-s">
+      <div class="row">
           <div class="font-weight-bold col-4 text-left">
               <label>1. Selecciona tu idioma preferido</label>
             </div>
@@ -40,50 +40,73 @@
       
 
       <!-- Pregunta 2 -->
-      <label class="font-weight-bold mt-3" >
-        2. Si pudieras elegir un formato en el que prefieres aprender un tema, ¿Cuál de los siguientes escogerías? Puedes escoger varias opciones.
-      </label><br />
-
-      <input type="checkbox" id="video" name="formato" value="video"
-        {{'checked' if "video" in formats else '' }}/>
-      <label for="video"> Video </label><br />
-      <input type="checkbox" id="audio" name="formato" value="audio"
-        {{'checked' if "audio" in formats else '' }}/>
-      <label for="audio"> Audio </label><br />
-      <input type="checkbox" id="ppt" name="formato" value="presentacion"
-        {{'checked' if "presentacion" in formats else '' }}/>
-      <label for="ppt"> Presentación </label><br />
-      <input type="checkbox" id="app" name="formato" value="app"
-        {{'checked' if "app" in formats else '' }}/>
-      <label for="app"> App </label><br />
-      <input type="checkbox" id="web" name="formato" value="web"
-        {{'checked' if "web" in formats else '' }}/>
-      <label for="web"> Página Web </label><br />
-      <input type="checkbox" id="imagen" name="formato" value="imagen"
-        {{'checked' if "imagen" in formats else '' }}/>
-      <label for="imagen"> Imágenes </label><br />
-      <br />
+      <div class="row">
+        <div class="font-weight-bold col-4 text-left">
+            <label> 2. Si pudieras elegir un formato en el que prefieres aprender un tema, ¿Cuál de los siguientes escogerías? Puedes escoger varias opciones.</label>
+          </div>
+        <div class="col-8 text-left">
+          <div class="form-check">
+            <input type="checkbox" id="video" name="formato" value="video"
+            {{'checked' if "video" in formats else '' }}/>
+            <label for="video"> Video </label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="ppt" name="formato" value="presentacion"
+            {{'checked' if "presentacion" in formats else '' }}/>
+          <label for="ppt"> Presentación </label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="app" name="formato" value="app"
+            {{'checked' if "app" in formats else '' }}/>
+            <label for="app"> App </label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="web" name="formato" value="web"
+            {{'checked' if "web" in formats else '' }}/>
+          <label for="web"> Página Web </label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="imagen" name="formato" value="imagen"
+            {{'checked' if "imagen" in formats else '' }}/>
+          <label for="imagen"> Imágenes </label>
+          </div>
+        </div>
+    </div>
 
 
       <!-- Pregunta 3 -->
-      <label class="font-weight-bold mt-3"> 3. Elige las fuentes que sean de tu interés. Puedes elegir más de una. </label><br />
-      <input type="checkbox" id="fuente1" name="fuente" value="articulos"
+      <div class="row">
+        <div class="font-weight-bold col-4 text-left">
+            <label> 3. Elige las fuentes que sean de tu interés. Puedes elegir más de una.</label>
+          </div>
+          <div class="col-8 text-left">
+            <div class="form-check">
+              <input type="checkbox" id="fuente1" name="fuente" value="articulos"
         {{'checked' if "articulos" in sources else '' }}/>
-      <label for="fuente1"> Artículos científicos: arxiv, pubmed,... </label><br />
-      <input type="checkbox" id="fuente2" name="fuente" value="libros"
+      <label for="fuente1"> Artículos científicos: arxiv, pubmed,... </label>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" id="fuente2" name="fuente" value="libros"
         {{'checked' if "libros" in sources else '' }}/>
-      <label for="fuente2"> Libros: Doab, IntechOpen,... </label><br />
-      <input type="checkbox" id="fuente3" name="fuente" value="foros"
-        {{'checked' if "foros" in sources else '' }}/>
-      <label for="fuente3"> Foros: Stack Overflow </label><br />
-      <input type="checkbox" id="fuente4" name="fuente" value="Wikipedia"
-        {{'checked' if "Wikipedia" in sources else '' }}/>
-      <label for="fuente4"> Wikipedia </label><br />
-      <input type="checkbox" id="fuente5" name="fuente" value="objetos"
-        {{'checked' if "objetos" in sources else '' }}/>
-      <label for="fuente5"> Objetos de aprendizaje </label><br />
-      <br />
-
+      <label for="fuente2"> Libros: Doab, IntechOpen,... </label>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" id="fuente3" name="fuente" value="foros"
+              {{'checked' if "foros" in sources else '' }}/>
+            <label for="fuente3"> Foros: Stack Overflow </label>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" id="fuente4" name="fuente" value="Wikipedia"
+              {{'checked' if "Wikipedia" in sources else '' }}/>
+            <label for="fuente4"> Wikipedia </label>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" id="fuente5" name="fuente" value="objetos"
+              {{'checked' if "objetos" in sources else '' }}/>
+            <label for="fuente5"> Objetos de aprendizaje </label>
+            </div>
+          </div>
+        </div>
       <!--  Guardar formulario -->
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         <i class="far fa-save"></i>
