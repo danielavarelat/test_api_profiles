@@ -1,0 +1,46 @@
+{% include 'header.html' %}
+
+    <title>Student Profile</title>
+
+  </head>
+
+  <body>
+    
+      {% include 'headNavBar.html' %}
+      {% for i in sections -%}
+      <div class="container">
+        <h1>{{i}}</h1>
+          <table id="myTable" class=" table order-list">
+          <thead>
+              <tr>
+                  <td>Título</td>
+                  <td>Url</td>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td class="col-sm-6">
+                      <input type="text" name="title" class="form-control" />
+                  </td>
+                  <td class="col-sm-6">
+                      <input type="url" name="url"  class="form-control"/>
+                  </td>
+                  <td class="col-sm-2"><a class="deleteRow"></a>
+      
+                  </td>
+              </tr>
+          </tbody>
+          <tfoot>
+              <tr>
+                  <td colspan="5" style="text-align: left;">
+                      <input type="button" class="btn btn-lg btn-block " id="addrow" value="Add Row" />
+                  </td>
+              </tr>
+              <tr>
+              </tr>
+          </tfoot>
+      </table>
+      </div>
+      {% endfor -%}
+  </body>
+</html>

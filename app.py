@@ -45,6 +45,19 @@ def form(idStudent=None):
     ##si hace get y no encuentra nada - renderizar asi>
     return render_template("index_student.html", idStudent=idStudent, username=uname)
 
+@app.route("/favorites/<idCourse>",  methods=['GET', 'POST'])
+def favs(idCourse=None):
+    cursename = str(request.args.get('coursename'))
+    sections = str(request.args.get('section'))
+    print(sections)
+    list_sec = []
+    if sections != "None":
+        
+        for sec in sections.split(","):
+            sec = sec.split("--")
+            list_sec.append("section id" + sec[0] + " "+ sec[1])
+            print(list_sec)
+    return render_template("favorites.html", number=len(list_sec), sections=list_sec)
 
 @app.route("/courseProfile/<idCourse>",  methods=['GET', 'POST'])
 def formCourse(idCourse=None):
