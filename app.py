@@ -50,14 +50,18 @@ def favs(idCourse=None):
     cursename = str(request.args.get('coursename'))
     sections = str(request.args.get('section'))
     print(sections)
-    list_sec = []
+    list_sec = ["Generales"]
     if sections != "None":
-        
+        if sections[-1] == ",":
+            sections = sections[:-1]
         for sec in sections.split(","):
             sec = sec.split("--")
-            list_sec.append("section id" + sec[0] + " "+ sec[1])
-            print(list_sec)
-    return render_template("favorites.html", number=len(list_sec), sections=list_sec)
+            list_sec.append("Section id " + sec[0] + ": "+ sec[1])
+    if request.method == "POST":
+        url = request.form.get("url")
+        print(url)
+        return "OK"
+    return render_template("favorites.html", idCourse=idCourse, cursename=cursename, number=len(list_sec), sections=list_sec)
 
 @app.route("/courseProfile/<idCourse>",  methods=['GET', 'POST'])
 def formCourse(idCourse=None):
