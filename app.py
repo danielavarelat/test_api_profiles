@@ -22,18 +22,17 @@ def form(idStudent=None):
         idioma = request.form.get("idioma")
         formatos = request.form.getlist("formato")
         fuentes = request.form.getlist("fuente")
-        dict_user = {"userid": userid, "username":uname, "lang": idioma,
+        dict_user = {"userid": userid, "username": uname, "lang": idioma,
                      "sources": fuentes, "formats": formatos}
         print(dict_user)
         if q:
             print("Updated")
             collection_student.update_one({'_id': q['_id']}, {
-                                  '$set': dict_user}, upsert=False)
+                '$set': dict_user}, upsert=False)
         else:
             print("Created")
             collection_student.insert_one(dict_user)
         return render_template("student_ok.html", idStudent=idStudent)
-
 
     if request.method == "GET":
         if q:
@@ -42,8 +41,9 @@ def form(idStudent=None):
             fuentes = q['sources']
             return render_template(
                 "index_student.html", idStudent=idStudent, username=uname, language=idioma, formats=formatos, sources=fuentes)
-    ##si hace get y no encuentra nada - renderizar asi>
+    # si hace get y no encuentra nada - renderizar asi>
     return render_template("index_student.html", idStudent=idStudent, username=uname)
+
 
 @app.route("/favorites/<idCourse>",  methods=['GET', 'POST'])
 def favs(idCourse=None):
@@ -56,12 +56,26 @@ def favs(idCourse=None):
             sections = sections[:-1]
         for sec in sections.split(","):
             sec = sec.split("--")
-            list_sec.append("Section id " + sec[0] + ": "+ sec[1])
+            list_sec.append("Section id " + sec[0] + ": " + sec[1])
     if request.method == "POST":
-        url = request.form.get("url")
-        print(url)
+        counter = str(request.form.getlist("test"))
+        rows = []
+        for i in counter.replace("[", "").replace("]", "").split(","):
+            rows.append(int(i.replace("/", "").replace("'", '')))
+        print(counter)
+        max_rows = max(rows) + 2
+        print(max_rows)
+        res = []
+        for i in range(max_rows):
+            if i == 0:
+                x = request.form.getlist("title")
+            else:
+                x = request.form.getlist("title{}".format(i-1))
+            res.append(x)
+        print(res)
         return "OK"
     return render_template("favorites.html", idCourse=idCourse, cursename=cursename, number=len(list_sec), sections=list_sec)
+
 
 @app.route("/courseProfile/<idCourse>",  methods=['GET', 'POST'])
 def formCourse(idCourse=None):
@@ -71,14 +85,14 @@ def formCourse(idCourse=None):
     if request.method == "POST":
         idioma = request.form.get("idioma")
         fuentes = request.form.getlist("fuente")
-        dict_course = {"courseid": courseid, "username":uname, "lang": idioma,
-                     "sources": fuentes}
+        dict_course = {"courseid": courseid, "username": uname, "lang": idioma,
+                       "sources": fuentes}
         print(dict_course)
         print(q)
         if q:
             print("Updated")
             collection_student.update_one({'_id': q['_id']}, {
-                                  '$set': dict_course}, upsert=False)
+                '$set': dict_course}, upsert=False)
         else:
             print("Created")
             collection_course.insert_one(dict_course)
