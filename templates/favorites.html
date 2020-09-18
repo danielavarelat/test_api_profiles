@@ -23,7 +23,6 @@
             }); 
         });
         {% endfor -%}
-
      </script>
   </head>
 
@@ -47,16 +46,21 @@
                   </tr>
               </thead>
               <tbody>
+                {% for j in range(nrows[i]) -%}
                 <tr>
-                    <td class="col-sm-6">
-                        <input type="text" name="title" class="form-control">
+                    <td class="col-sm-5">
+                        <input type="text" name="titleSaved{{j}}" class="form-control" value={{titles[i][j]}} />
                     </td>
-                    <td class="col-sm-6">
+                    <td class="col-sm-5">
                         <input type="url" name="url"  class="form-control"/>
                     </td>
-                    <td class="col-sm-2"><a class="deleteRow"></a>
-                    </td>
+                    <td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>
+
+                    <!-- <td class="col-sm-2">
+                      <a class="deleteRow"></a>
+                    </td> -->
                 </tr>
+                {% endfor -%}
               </tbody>
               <tfoot>
                   <tr>

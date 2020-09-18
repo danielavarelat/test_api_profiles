@@ -50,6 +50,14 @@ def favs(idCourse=None):
     cursename = str(request.args.get('coursename'))
     sections = str(request.args.get('section'))
     print(sections)
+
+    # list_rows = [0 for i in list_rows if i == 1]
+    list_list_titles = [["hola", "hola2", "hola3"], [
+        "second", "secondsito"], ["jijij"], ["lol"]]
+    list_list_titles = [[], [], [], []]
+    list_rows = [len(i) for i in list_list_titles]
+    list_rows = [1 for i in list_rows if i == 0]
+    print(list_rows)
     list_sec = ["Generales"]
     if sections != "None":
         if sections[-1] == ",":
@@ -59,12 +67,16 @@ def favs(idCourse=None):
             list_sec.append("Section id " + sec[0] + ": " + sec[1])
     if request.method == "POST":
         counter = str(request.form.getlist("test"))
-        rows = []
-        for i in counter.replace("[", "").replace("]", "").split(","):
-            rows.append(int(i.replace("/", "").replace("'", '')))
-        print(counter)
-        max_rows = max(rows) + 2
-        print(max_rows)
+        print("Counter " + counter)
+
+        if counter != "[]":
+            rows = []
+            for i in counter.replace("[", "").replace("]", "").split(","):
+                rows.append(int(i.replace("/", "").replace("'", '')))
+            max_rows = max(rows) + 2
+        else:
+            max_rows = 1
+        print("max rows " + str(max_rows))
         res = []
         for i in range(max_rows):
             if i == 0:
@@ -72,8 +84,12 @@ def favs(idCourse=None):
             else:
                 x = request.form.getlist("title{}".format(i-1))
             res.append(x)
-        print(res)
-        return "OK"
+        print("res " + str(res))
+        return render_template("favorites_ok.html")
+
+    if request.method == "GET":
+        return render_template("favorites.html", idCourse=idCourse, cursename=cursename,
+                               number=len(list_sec), sections=list_sec, nrows=list_rows, titles=list_list_titles)
     return render_template("favorites.html", idCourse=idCourse, cursename=cursename, number=len(list_sec), sections=list_sec)
 
 
