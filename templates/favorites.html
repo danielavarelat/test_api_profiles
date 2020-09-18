@@ -8,14 +8,14 @@
        $("#addrow{{i}}").on("click", function () {
            var newRow = $("<tr>");
            var cols = "";
-           cols += '<td><input type="text" class="form-control" name="title' + counter + '"/></td>';
-           cols += '<td><input type="hidden" name="test" value=' + counter + '/></td>';
-           cols += '<td><input type="url" class="form-control" name="url' + counter + '"/></td>';
+           cols += '<td><input type="text" class="form-control" name="title{{i}}"/></td>';
+           cols += '<td><input type="url" class="form-control" name="url{{i}}"/></td>';
            cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
            newRow.append(cols);
            $("#myTable{{i}}").append(newRow);
            counter++;
         });
+        
  
         $("#myTable{{i}}").on("click", ".ibtnDel", function (event) {
             $(this).closest("tr").remove();       
@@ -32,54 +32,53 @@
       <h2 class="mt-5 font-weight-bold">
         Favoritos del curso: {{cursename}}
       </h2>
-      
-    <form action="/favorites/{{idCourse}}" class="form-student" method="post" >
+    
+    <div>
+      <form action="/favorites/{{idCourse}}?idsSections={{ids}}" class="row mt-0 mb-5 pt-0" method="post" >
 
-      {% for i in range(number) -%}
-        <div class="container">
-            <h1>{{sections[i]}}</h1>
-              <table id="myTable{{i}}" class=" table order-list{{i}}">
-              <thead>
+        {% for i in range(number) -%}
+          <div class="container">
+              <h1>{{sections[i]}}</h1>
+                <table id="myTable{{i}}" class=" table order-list{{i}}">
+                <thead>
+                    <tr>
+                        <td>Título</td>
+                        <td>Url</td>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for j in range(nrows[i]) -%}
                   <tr>
-                      <td>Título</td>
-                      <td>Url</td>
-                  </tr>
-              </thead>
-              <tbody>
-                {% for j in range(nrows[i]) -%}
-                <tr>
-                    <td class="col-sm-5">
-                        <input type="text" name="titleSaved{{j}}" class="form-control" value={{titles[i][j]}} />
-                    </td>
-                    <td class="col-sm-5">
-                        <input type="url" name="url"  class="form-control"/>
-                    </td>
-                    <td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>
-
-                    <!-- <td class="col-sm-2">
-                      <a class="deleteRow"></a>
-                    </td> -->
-                </tr>
-                {% endfor -%}
-              </tbody>
-              <tfoot>
-                  <tr>
-                      <td colspan="5" style="text-align: left;">
-                          <input type="button" class="btn btn-lg btn-block " id="addrow{{i}}" value="Add Row" />
+                      <td>
+                          <input type="text" name="title{{i}}" class="form-control" value='{{titles[i][j]}}'  />
                       </td>
+                      <td>
+                          <input type="url" name="url{{i}}"  class="form-control" value='{{urls[i][j]}}'/>
+                      </td>
+                      <td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>
                   </tr>
-                  <tr>
-                  </tr>
-              </tfoot>
-          </table>
-          </div>
-      
-      {% endfor -%}
-            <!--  Guardar formulario -->
-            <button class="btn btn-lg btn-primary btn-block" type="submit">
-                <i class="far fa-save"></i>
-                Guardar
-              </button>
-    </form>
+                  {% endfor -%}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5" style="text-align: left;">
+                            <input type="button" class="btn btn-lg btn-block " id="addrow{{i}}" value="Add Row" />
+                        </td>
+                    </tr>
+                    <tr>
+                    </tr>
+                </tfoot>
+            </table>
+            </div>
+        
+        {% endfor -%}
+              <!--  Guardar formulario -->
+              <button class="btn btn-lg btn-primary btn-block" type="submit">
+                  <i class="far fa-save"></i>
+                  Guardar
+                </button>
+      </form>
+    </div>
+    
   </body>
 </html>
