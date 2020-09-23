@@ -9,10 +9,10 @@
     {% include 'headNavBar.html' %}
 
     <h2 class="mt-5 font-weight-bold">
-      Formulario del estudiante: {{username}}
+      Formulario del estudiante: {{firstname}}
     </h2>
 
-    <form action="/studentProfile/{{idStudent}}?username={{username}}" class="form-student" method="post" >
+    <form action="/studentProfile/{{idStudent}}" class="form-student" method="post" >
 
       <!-- Pregunta 1 -->
       <div class="row">
@@ -110,7 +110,7 @@
       <!--  Guardar formulario -->
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         <i class="far fa-save"></i>
-        Save
+        Guardar
       </button>
 
     </form>

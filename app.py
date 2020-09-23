@@ -16,11 +16,12 @@ collection_course = db['course_coll']
 dbfavs = client['favorites']
 collection_favs = dbfavs['favoritescoll']
 
-# Atlas: daniela, crispeta
+
 @app.route("/studentProfile/<idStudent>",  methods=['GET', 'POST'])
 def form(idStudent=None):
     uname = str(request.args.get('username'))
     userid = str(idStudent)
+    fname = str(request.args.get('firstname'))
     q = collection_student.find_one({"userid": userid})
     if request.method == "POST":
         idioma = request.form.get("idioma")
@@ -44,8 +45,7 @@ def form(idStudent=None):
             formatos = q['formats']
             fuentes = q['sources']
             return render_template(
-                "index_student.html", idStudent=idStudent, username=uname, language=idioma, formats=formatos, sources=fuentes)
-    # si hace get y no encuentra nada - renderizar asi>
+                "index_student.html", idStudent=idStudent, firstname=fname, language=idioma, formats=formatos, sources=fuentes)
     return render_template("index_student.html", idStudent=idStudent, username=uname)
 
 
@@ -66,7 +66,6 @@ def favs(idCourse=None):
     result = list(q)
 
     if request.method == "POST":
-        print("POST")
         ids = (request.args.get('idsSections')).split(",")  # get ids from url
         dict_value_titles = {}  # {numsections : list of titles}
         dict_value_urls = {}
@@ -81,8 +80,9 @@ def favs(idCourse=None):
             urls = dict_value_urls[i]
             section = []
             for t in range(len(titles)):
-                section.append(
-                    {"courseid": idCourse, "sectionid": i, "title": titles[t], "url": urls[t]})
+                if (titles[t] != "" and urls[t] != ""):
+                    section.append(
+                        {"courseid": idCourse, "sectionid": i, "title": titles[t], "url": urls[t]})
             l.append(section)
         flat_list = [item for sublist in l for item in sublist]
         # Insert in mongo DB
@@ -111,7 +111,6 @@ def favs(idCourse=None):
                 list_list_urls.append([])
         list_rows = [len(i) for i in list_list_titles]
         list_rows = [1 if x == 0 else x for x in list_rows]
-        print(list_list_titles)
         return render_template("favorites.html", idCourse=idCourse, cursename=cursename,
                                number=len(list_sec), sections=list_sec, nrows=list_rows, titles=list_list_titles, urls=list_list_urls, ids=",".join(ids))
     return render_template("favorites.html", idCourse=idCourse, cursename=cursename, number=len(list_sec), sections=list_sec, ids=",".join(ids))

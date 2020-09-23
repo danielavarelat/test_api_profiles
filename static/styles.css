@@ -5,7 +5,7 @@ html {
   box-sizing: border-box;
 }
 body {
-  background: #eee;
+  background: #fff;
   text-align: left;
 }
 h1,
@@ -16,7 +16,9 @@ h5,
 h6 {
   text-align: center;
 }
-
+.navbar {
+  background-color: #3399cc;
+}
 /* student_ok.html */
 .fa-user {
   color: green;
@@ -33,12 +35,17 @@ h6 {
   max-width: 650px;
   padding: 10px;
   margin: auto;
-  border: black;
 }
 .row {
   margin-bottom: 50px;
   padding-top: 20px;
   padding-bottom: 20px;
-  background-color: #dce7ec;
+  background-color: #f5f5f5;
   border-radius: 10px;
+}
+table,
+tr,
+td,
+th {
+  border: 0;
 }
